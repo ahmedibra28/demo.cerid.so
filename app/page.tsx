@@ -8,7 +8,7 @@ import MissionVision from '@/components/mission-vision'
 import Projects from '@/components/projects'
 import ThematicAreas from '@/components/thematic-areas'
 
-export default function Home() {
+export default async function Home() {
   return (
     <div>
       <HeroSection />

@@ -6,12 +6,19 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-import Image from 'next/image'
+import BlurImage from '@/components/blur-image'
 import { ChevronLeftIcon, ChevronRightIcon } from 'lucide-react'
+import { getDonors } from '@/app/appwrite'
 
-export default function Donors() {
+export default async function Donors() {
+  const donor = await getDonors()
+  const donorData = donor?.documents
+
   return (
-    <section className='w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800'>
+    <section
+      className='w-full py-12 md:py-24 lg:py-32 bg-gray-100 dark:bg-gray-800'
+      id='partners'
+    >
       <div className='container px-4 md:px-6'>
         <div className='flex flex-col items-center justify-center space-y-4 text-center'>
           <div className='space-y-2'>
@@ -33,18 +40,18 @@ export default function Donors() {
             className='w-full max-w-6xl mx-auto'
           >
             <CarouselContent>
-              {Array.from({ length: 20 }).map((_, index) => (
+              {donorData?.map((item, index) => (
                 <CarouselItem
                   key={index}
                   className='basis-1/2 md:basis-1/3 lg:basis-1/4'
                 >
                   <div className='p-4'>
-                    <Image
+                    <BlurImage
                       alt='Partner Logo'
                       className='mx-auto aspect-[2/1] overflow-hidden rounded-lg object-contain object-center'
-                      height='90'
-                      src='https://images.unsplash.com/photo-1673296630925-a16a5592cc14?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                      width='180'
+                      height={90}
+                      src={item?.logo}
+                      width={180}
                     />
                   </div>
                 </CarouselItem>

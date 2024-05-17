@@ -1,10 +1,13 @@
+import { getAddress } from '@/app/appwrite'
 import { LocateIcon, MailIcon, PhoneIcon } from 'lucide-react'
-import Image from 'next/image'
 import React from 'react'
 
-export default function Footer() {
+export default async function Footer() {
+  const address = await getAddress()
+  const addressData = address?.documents
+
   return (
-    <footer className='w-full mt-8 py-8'>
+    <footer className='w-full mt-8 py-8' id='contact-us'>
       <h2 className='text-3xl font-bold tracking-tighter sm:text-4xl md:text-5xl mb-8 text-center'>
         Get In Touch
       </h2>
@@ -13,27 +16,27 @@ export default function Footer() {
       </p>
 
       <div className='container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 my-8'>
-        {Array.from({ length: 4 }).map((_, index) => (
+        {addressData.map((item, index) => (
           <div key={index} className='space-y-2'>
             <h3 className='text-lg font-bold text-gray-800 dark:text-gray-200'>
-              Contact Us
+              {item.office}
             </h3>
             <div className='flex items-center space-x-2'>
               <PhoneIcon className='w-5 h-5 text-gray-500 dark:text-gray-400' />
               <span className='text-gray-600 dark:text-gray-400'>
-                123-456-7890
+                {item.mobile}
               </span>
             </div>
             <div className='flex items-center space-x-2'>
               <MailIcon className='w-5 h-5 text-gray-500 dark:text-gray-400' />
               <span className='text-gray-600 dark:text-gray-400'>
-                info@company.com
+                {item.email}
               </span>
             </div>
             <div className='flex items-center space-x-2'>
               <LocateIcon className='w-5 h-5 text-gray-500 dark:text-gray-400' />
               <span className='text-gray-600 dark:text-gray-400'>
-                123 Main St, Anytown USA
+                {item.address}
               </span>
             </div>
           </div>
@@ -41,13 +44,14 @@ export default function Footer() {
       </div>
 
       <div className='container'>
-        <Image
-          alt='Company Location'
-          className='w-full h-80 rounded-md object-cover'
-          height={100}
-          src='https://images.unsplash.com/photo-1476973422084-e0fa66ff9456?q=80&w=2041&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-          width={400}
-        />
+        <iframe
+          src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3980.465327109004!2d41.872786814043295!3d3.9239300489969957!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x17c26323f6bdb35b%3A0x4b1089e34d7fe8a1!2sCeRID!5e0!3m2!1sen!2sso!4v1640259822302!5m2!1sen!2sso'
+          height='300'
+          className='w-full'
+          loading='lazy'
+          style={{ border: '0' }}
+          allowFullScreen={true}
+        ></iframe>
       </div>
     </footer>
   )
