@@ -1,25 +1,22 @@
 import React from 'react'
 import { getPage } from '@/app/appwrite'
-import Markdown from 'react-markdown'
 import Footer from '@/components/footer'
+import MissionVision from '@/components/mission-vision'
 
 export default async function Page() {
   const item = await getPage('about-us')
   const itemData = item?.documents?.[0]
 
-  const topContent =
-    'Group of Youth posing photo after the completion of business skills and entrepreneurship training in SaMTEC Beledhawa with support from USAID CBCR Projects.'
-
   return (
     <>
-      <section className='bg-gray-100 dark:bg-gray-800 py-12 md:py-16 lg:py-48 lg:text-white lg:bg-[url("https://cloud.appwrite.io/v1/storage/buckets/66471275000c7c4c56be/files/664a122400099b42aca4/view?project=65905182817b88c986bf")] lg:bg-no-repeat lg:bg-cover lg:bg-center lg:relative'>
+      <section className='bg-gray-100 dark:bg-gray-800 py-12 md:py-16 lg:py-20'>
         <div className='container mx-auto px-4 md:px-6'>
           <div className='max-w-3xl mx-auto'>
             <div className='space-y-4'>
               <h1 className='text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl'>
-                {itemData?.title}
+                Mission & Vision
               </h1>
-              <div className='flex items-center space-x-4 '>
+              <div className='flex items-center space-x-4 text-gray-500 dark:text-gray-400'>
                 <div>
                   <span className='font-medium'>CeRID</span>
                   <span> - </span>
@@ -38,15 +35,10 @@ export default async function Page() {
             </div>
           </div>
         </div>
-        <div className='absolute right-10 bottom-10 w-80 bg-brand/80 rounded-xl hidden lg:flex'>
-          <div className='p-4'>{topContent}</div>
-        </div>
       </section>
 
       <div className='container mx-auto px-4 md:px-6 py-12 md:py-16 lg:py-20'>
-        <Markdown className='prose prose-gray mx-auto dark:prose-invert lg:max-w-3xl'>
-          {itemData?.content}
-        </Markdown>
+        <MissionVision />
       </div>
 
       <Footer />

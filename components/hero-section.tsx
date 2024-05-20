@@ -1,20 +1,23 @@
 import React from 'react'
 import { Button } from '@/components/ui/button'
-import BlurImage from '@/components/blur-image'
 import Link from 'next/link'
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui/carousel'
 import { getShorts } from '@/app/appwrite'
 import Markdown from 'react-markdown'
+import HeroCarousel from '@/components/hero-carousel'
 
 export default async function HeroSection() {
   const hero = await getShorts('hero')
   const heroData = hero?.documents?.[0]
+
+  const images = [
+    'https://cloud.appwrite.io/v1/storage/buckets/66471275000c7c4c56be/files/664a040d002b83e82d75/view?project=65905182817b88c986bf',
+    'https://cloud.appwrite.io/v1/storage/buckets/66471275000c7c4c56be/files/664a05b50001c872bed8/view?project=65905182817b88c986bf',
+    'https://cloud.appwrite.io/v1/storage/buckets/66471275000c7c4c56be/files/664a06ee000ae0bb09df/view?project=65905182817b88c986bf',
+    'https://cloud.appwrite.io/v1/storage/buckets/66471275000c7c4c56be/files/664a094c002b118177c2/view?project=65905182817b88c986bf',
+    'https://cloud.appwrite.io/v1/storage/buckets/66471275000c7c4c56be/files/664a0d550021665762db/view?project=65905182817b88c986bf',
+    'https://cloud.appwrite.io/v1/storage/buckets/66471275000c7c4c56be/files/664a0d4e001d49918ba0/view?project=65905182817b88c986bf',
+    'https://cloud.appwrite.io/v1/storage/buckets/66471275000c7c4c56be/files/664a0e20001dd3886a07/view?project=65905182817b88c986bf',
+  ]
 
   return (
     <section
@@ -43,31 +46,7 @@ export default async function HeroSection() {
               </Link>
             </div>
           </div>
-
-          <Carousel
-            opts={{
-              align: 'start',
-              loop: true,
-              duration: 50,
-            }}
-            className='mx-auto aspect-video rounded-xl object-cover sm:w-full lg:order-last lg:lg:aspect-square shadow-2xl'
-          >
-            <CarouselContent>
-              {Array.from({ length: 5 }).map((_, index) => (
-                <CarouselItem key={index}>
-                  <BlurImage
-                    height={550}
-                    width={550}
-                    alt='Hero'
-                    className='mx-auto aspect-video overflow-hidden rounded-xl object-cover sm:w-full lg:order-last lg:lg:aspect-square'
-                    src='https://plus.unsplash.com/premium_photo-1678837556129-d8cdd80cbe25?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'
-                  />
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className='text-brand hidden lg:flex' />
-            <CarouselNext className='text-brand hidden lg:flex' />
-          </Carousel>
+          <HeroCarousel images={images} />
         </div>
       </div>
     </section>
