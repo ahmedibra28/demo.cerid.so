@@ -1,15 +1,12 @@
 import React from 'react'
-import { getPage } from '@/app/appwrite'
+import { getKeyAchievementsBySlug } from '@/app/appwrite'
 import Markdown from 'react-markdown'
 import Footer from '@/components/footer'
 import BlurImage from '@/components/blur-image'
 
-export default async function Page() {
-  const item = await getPage('about-us')
+export default async function Page({ params }: { params: { slug: string } }) {
+  const item = await getKeyAchievementsBySlug(params.slug)
   const itemData = item?.documents?.[0]
-
-  const topContent =
-    'Group of Youth posing photo after the completion of business skills and entrepreneurship training in SaMTEC Beledhawa with support from USAID CBCR Projects.'
 
   return (
     <>
@@ -40,16 +37,12 @@ export default async function Page() {
           </div>
         </div>
         <BlurImage
-          src='https://cloud.appwrite.io/v1/storage/buckets/66471275000c7c4c56be/files/664a122400099b42aca4/view?project=65905182817b88c986bf'
+          src={itemData?.coverImage || itemData?.image}
           alt={itemData?.title}
           className='inset-0 w-full h-full object-cover object-center'
           priority
           fill
         />
-
-        <div className='absolute text-end right-10 bottom-10 w-80 bg-brand/80s rounded-xl hidden lg:flex'>
-          <div className='p-4 text-end'>{topContent}</div>
-        </div>
       </section>
 
       <div className='container mx-auto px-4 md:px-6 py-12 md:py-16 lg:py-20'>

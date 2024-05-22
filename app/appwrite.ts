@@ -136,3 +136,30 @@ export const getProjectsBySlug = async (slug: string) => {
     throw error
   }
 }
+
+export const getKeyAchievements = async () => {
+  try {
+    const response = await databases.listDocuments(
+      NEXT_PUBLIC_APPWRITE_DATABASE_ID as string,
+      'key-achievement'
+    )
+
+    return response
+  } catch (error) {
+    throw error
+  }
+}
+
+export const getKeyAchievementsBySlug = async (slug: string) => {
+  try {
+    const response = await databases.listDocuments(
+      NEXT_PUBLIC_APPWRITE_DATABASE_ID as string,
+      'key-achievement',
+      [Query.equal('slug', slug)]
+    )
+
+    return response
+  } catch (error) {
+    throw error
+  }
+}

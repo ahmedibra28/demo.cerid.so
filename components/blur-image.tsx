@@ -8,13 +8,15 @@ import Image from 'next/image'
 
 interface BlurImageProps {
   src: string
-  width: number
-  height: number
+  width?: number
+  height?: number
   alt: string
   className?: string
   quality?: number
   style?: React.CSSProperties
   zoomIn?: boolean
+  fill?: boolean
+  priority?: boolean
 }
 
 const BlurImage: React.FC<BlurImageProps> = ({
@@ -26,10 +28,14 @@ const BlurImage: React.FC<BlurImageProps> = ({
   quality = 75,
   style,
   zoomIn = false,
+  fill = false,
+  priority = false,
 }) => {
   const [isLoading, setIsLoading] = React.useState(true)
   return (
     <Image
+      fill={fill}
+      priority={priority}
       src={src}
       width={width}
       height={height}
