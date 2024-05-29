@@ -17,12 +17,19 @@ export default async function Projects() {
         </h2>
 
         <div className='grid md:grid-cols-2 lg:grid-cols-4 gap-8'>
-          {itemData?.map((item) => (
-            <ItemCard
-              key={item?.$id}
-              item={{ ...item, slug: `/projects/${item?.slug}` }}
-            />
-          ))}
+          {itemData
+            ?.filter(
+              (item) =>
+                !['66474565003be473ed58', '664745b400055b0ce0b3'].includes(
+                  item.$id
+                )
+            )
+            ?.map((item) => (
+              <ItemCard
+                key={item?.$id}
+                item={{ ...item, slug: `/projects/${item?.slug}` }}
+              />
+            ))}
         </div>
 
         {/* <div className='text-end'>
